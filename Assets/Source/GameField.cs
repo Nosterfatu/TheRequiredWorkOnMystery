@@ -6,12 +6,9 @@ namespace Source
     {
         private string[][] _field;
         private FieldView _fieldView;
-        private GameSave _save;
-
 
         public void Load(GameSave gameSave)
         {
-            _save = gameSave;
             var lines = gameSave.Level.Split('\n');
             _field = new string[lines.Length][];
             for (var index = 0; index < lines.Length; index++)
@@ -28,21 +25,20 @@ namespace Source
             view.Setup(_field);
         }
 
-        public bool TryMatch((int, int) cell1, (int, int) cell2)
+        public bool TryMatch(Vector2Int cell1, Vector2Int cell2)
         {
-            var match = _field[cell1.Item1][cell1.Item2] == _field[cell2.Item1][cell2.Item2];
+            var match = _field[cell1.y][cell1.x] == _field[cell2.y][cell2.x];
 
             if (match)
             {
-                _field[cell1.Item1][cell1.Item2] = " ";
-                _field[cell2.Item1][cell2.Item2] = " ";
-                UpdateSave();
+                _field[cell1.y][cell1.x] = " ";
+                _field[cell2.y][cell2.x] = " ";
             }
 
             return match;
         }
 
-        private void UpdateSave()
+        public string GetSave()
         {
             string updatedLevel = "";
             for (var index = 0; index < _field.Length; index++)
@@ -50,30 +46,7 @@ namespace Source
                 var level = _field[index];
                 string.Concat(updatedLevel, string.Join("|", level), index == _field.Length - 1 ? "\n" : "");
             }
+            return updatedLevel;
         }
-    }
-
-    public class FieldView : MonoBehaviour
-    {
-        private int _height;
-        private int _width;
-
-        void Install(ICardPool cardPool)
-        {
-            
-        }
-
-        public void Setup(string[][] field)
-        {
-            _height = field.Length;
-            // always have the same width for all lines 
-            _width = field[0].Length;
-        }
-    }
-
-    internal interface ICardPool
-    {
-        CardView Get(string id);
-        void Return(CardView view);
     }
 }

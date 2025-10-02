@@ -20,8 +20,17 @@ namespace Source
 
         public void SetProgress(int progress)
         {
+            Save = new GameSave()
+            {
+                Level = LevelsDict.Levels[progress],
+                Progression = LevelsDict.Levels[progress],
+                MaxTurns = LevelsDict.Levels[progress].Length,
+                TurnCount = 0
+            };
             Progress = progress;
         }
+        
+        
 
         public void SetLevel(GameSave level)
         {
