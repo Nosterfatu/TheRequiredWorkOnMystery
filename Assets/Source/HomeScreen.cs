@@ -8,12 +8,14 @@ public class HomeScreen : MonoBehaviour
     [SerializeField] Button _buttonNewGame;
     private IProgressionManager _context;
     private ILoader _loader;
+    private IAudioManager _audioManager;
 
-    public void Install(IProgressionManager context, ILoader loader)
+    public void Install(IProgressionManager context, ILoader loader, IAudioManager audioManager)
     {
         _context = context;
         _loader = loader;
-        _buttonContinue. gameObject.SetActive(context.HasProgress);
+        _audioManager = audioManager;
+        _buttonContinue.gameObject.SetActive(context.HasProgress);
     }
     
     void Start()
@@ -24,11 +26,13 @@ public class HomeScreen : MonoBehaviour
 
     private void Continue()
     {
+        _audioManager.PlaySound(SFX.ButtonClick);
         _loader.Load();
     }
 
     private void NewGame()
     {
+        _audioManager.PlaySound(SFX.ButtonClick);
         _context.SetProgress(0);
         _context.Reset();
         _loader.Load();

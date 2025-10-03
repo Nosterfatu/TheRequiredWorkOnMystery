@@ -28,7 +28,7 @@ namespace Source
         private void Click()
         {
             OnClick?.Invoke(_index);
-            _button.enabled = false;
+            DisableInput();
             StartCoroutine(Fade());
         }
 
@@ -69,6 +69,7 @@ namespace Source
 
         public void PlayDispose(Action onFinish = null)
         {
+            DisableInput();
             StartCoroutine(Dispose(onFinish));
         }
 
@@ -83,6 +84,7 @@ namespace Source
         {
             yield return new WaitForSeconds(1.5f);
             sign.color = new Color();
+            _button.enabled = true;
         }
 
         public void Hide()
