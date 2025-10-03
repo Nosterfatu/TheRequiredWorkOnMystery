@@ -9,7 +9,7 @@
         {
             _sidePanelController = sidePanelController;
             _progressionManager = progressionManager;
-            fieldController.FieldChanged+= OnFieldChanged;
+            fieldController.FieldChanged += OnFieldChanged;
         }
 
         private void OnFieldChanged(GameSave save)

@@ -15,7 +15,7 @@ namespace Source
         private ICardPool _cardPool;
         public event Action<Vector2Int> OnClick;
 
-        void Install(ICardPool cardPool)
+        public void Install(ICardPool cardPool)
         {
             _cardPool = cardPool;
         }
