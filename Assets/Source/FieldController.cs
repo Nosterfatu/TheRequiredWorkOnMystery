@@ -34,6 +34,7 @@ namespace Source
 
             if (selected == index)
             {
+                _fieldView.Hide(selected.Value);
                 selected = null;
                 return;
             }
@@ -43,6 +44,11 @@ namespace Source
                 _fieldView.Clear(index);
                 _gameSave.Score++;
                 _gameSave.Progression = _field.GetSave();
+            }
+            else
+            {
+                _fieldView.Hide(selected.Value);
+                _fieldView.Hide(index);
             }
             selected = null;
             _gameSave.TurnCount++;

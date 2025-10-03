@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Source
 {
-    public class MetaContext : IProgressionContext, IProgressionManager
+    public class MetaContext : IProgressionManager
     {
         public bool HasProgress => Save != null;
         public int Progress { get; private set; } = PlayerPrefs.GetInt("Progress", 0);
@@ -30,9 +30,6 @@ namespace Source
                 PlayerPrefs.SetInt("Progress", progress);
                 Progress = progress;
             }
-        
-            Reset();
-     
         }
 
         public void SetLevel(GameSave level)

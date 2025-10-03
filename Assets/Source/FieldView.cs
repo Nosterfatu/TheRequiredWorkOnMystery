@@ -65,5 +65,14 @@ namespace Source
         {
             OnClick?.Invoke(index);
         }
+
+        public void Hide(Vector2Int position)
+        {
+            var card = _cards[position.y][position.x];
+            if (card != null)
+            {
+                card.Hide();
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+using Source;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,10 +6,10 @@ public class HomeScreen : MonoBehaviour
 {
     [SerializeField] Button _buttonContinue;
     [SerializeField] Button _buttonNewGame;
-    private IProgressionContext _context;
+    private IProgressionManager _context;
     private ILoader _loader;
 
-    public void Install(IProgressionContext context, ILoader loader)
+    public void Install(IProgressionManager context, ILoader loader)
     {
         _context = context;
         _loader = loader;
@@ -23,11 +24,13 @@ public class HomeScreen : MonoBehaviour
 
     private void Continue()
     {
-        _loader.Load(_context.Progress);
+        _loader.Load();
     }
 
     private void NewGame()
     {
-        _loader.Load(-1);
+        _context.SetProgress(0);
+        _context.Reset();
+        _loader.Load();
     }
 }

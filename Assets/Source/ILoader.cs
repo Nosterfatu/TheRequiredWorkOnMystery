@@ -1,5 +1,5 @@
 ﻿public interface ILoader
 {
-    void Load(int progress);
+    void Load();
     public void Unload();
 }

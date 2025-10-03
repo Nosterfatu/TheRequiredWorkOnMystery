@@ -10,14 +10,8 @@ internal class Loader : ILoader
         _progressionManager = progressionManager;
     }
     
-    public void Load(int progress)
+    public void Load()
     {
-        if (progress < 0)
-        {
-            progress = 0;
-            _progressionManager.Reset();
-        }
-        _progressionManager.SetProgress(progress);
         SceneManager.LoadScene(1);
     }
 

@@ -28,6 +28,26 @@ namespace Source
         private void Click()
         {
             OnClick?.Invoke(_index);
+            _button.enabled = false;
+            StartCoroutine(Fade());
+        }
+
+        IEnumerator Fade()
+        {
+            bool increase = sign.color.a < 1;
+            float t = 0;
+            while (t < 1.1f)
+            {
+                t += Time.deltaTime;
+                var color = sign.color;
+                color.a = increase ? t : 1 - t;
+                color.a = Mathf.Clamp01(color.a);
+                sign.color = color;
+                yield return new WaitForEndOfFrame();
+            }
+            
+            yield return new WaitForSeconds(0.2f);
+            _button.enabled = true;
         }
 
         public void SetView(string id)
@@ -39,6 +59,7 @@ namespace Source
         {
             _button.enabled = true;
             gameObject.SetActive(true);
+            sign.color = new Color();
         }
 
         public void DisableInput()
@@ -53,9 +74,21 @@ namespace Source
 
         IEnumerator Dispose(Action onFinish = null)
         {
-            gameObject.SetActive(false);
             yield return new WaitForSeconds(2);
             onFinish?.Invoke();
+            gameObject.SetActive(false);
+        }
+
+        IEnumerator HideWithTimer()
+        {
+            yield return new WaitForSeconds(1.5f);
+            sign.color = new Color();
+        }
+
+        public void Hide()
+        {
+            DisableInput();
+            StartCoroutine(HideWithTimer());
         }
     }
 }

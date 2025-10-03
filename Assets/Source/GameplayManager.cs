@@ -19,12 +19,14 @@
         private void OnLoose()
         {
             _progressionManager.Reset();
-            _loader.Load(_progressionManager.Progress);
+            _loader.Load();
         }
 
         private void OnWin()
         {
-            _loader.Load(_progressionManager.Progress + 1);
+            _progressionManager.SetProgress(_progressionManager.Progress + 1);
+            _progressionManager.Reset();
+            _loader.Load();
         }
 
         private void OnFieldChanged(GameSave save)
