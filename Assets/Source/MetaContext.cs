@@ -20,6 +20,11 @@ namespace Source
 
         public void SetProgress(int progress)
         {
+            if (HasProgress && progress == Progress)
+            {
+                return;
+            }
+                
             Save = new GameSave()
             {
                 Level = LevelsDict.Levels[progress],
@@ -28,12 +33,20 @@ namespace Source
                 TurnCount = 0,
                 Score = 0
             };
-            Progress = progress;
+            
+            File.WriteAllText(_savePath, JsonUtility.ToJson(Save));
+            
+            if (Progress != progress)
+            {
+                PlayerPrefs.SetInt("Progress", progress);
+                Progress = progress;
+            }
         }
 
         public void SetLevel(GameSave level)
         {
             Save = level;
+            File.WriteAllText(_savePath, JsonUtility.ToJson(Save));
         }
     }
 }
