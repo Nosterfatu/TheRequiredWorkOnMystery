@@ -19,7 +19,7 @@ namespace Source
             var loader = new Loader(metaContext);
             var sidePanel = new SidePanelController(_sidePanelView, metaContext, loader);
             var fieldController = new FieldController(new GameField(), _fieldView, metaContext.Save);
-            _gameplayManager = new GameplayManager(fieldController,sidePanel, metaContext);
+            _gameplayManager = new GameplayManager(fieldController,sidePanel, metaContext, loader);
             
         }
     }

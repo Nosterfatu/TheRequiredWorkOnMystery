@@ -6,6 +6,8 @@ namespace Source
     public class FieldController
     {
         public event Action<GameSave> FieldChanged;
+        public event Action Won;
+        public event Action Lost;
         private readonly GameField _field;
         private readonly FieldView _fieldView;
         private readonly GameSave _gameSave;
@@ -46,11 +48,11 @@ namespace Source
             _gameSave.TurnCount++;
             FieldChanged?.Invoke(_gameSave);
             
-            if (string.IsNullOrWhiteSpace(_gameSave.Progression))
+            if (string.IsNullOrWhiteSpace(_gameSave.Progression.Replace(" ", "").Replace("|", "").Replace("\n", "")))
             {
                 Win();
             }
-            else if (_gameSave. TurnCount == _gameSave.MaxTurns)
+            else if (_gameSave. TurnCount >= _gameSave.MaxTurns)
             {
                 Loose();
             }
@@ -58,12 +60,12 @@ namespace Source
 
         private void Loose()
         {
-            
+            Lost?.Invoke();
         }
 
         private void Win()
         {
-            
+            Won?.Invoke();
         }
     }
 }

@@ -24,31 +24,35 @@ namespace Source
             {
                 return;
             }
-            if (progress < 0)
-            {
-                progress = 0;
-            }
-            Save = new GameSave()
-            {
-                Progression = LevelsDict.Levels[progress],
-                MaxTurns = LevelsDict.Levels[progress].Length,
-                TurnCount = 0,
-                Score = 0
-            };
-            
-            File.WriteAllText(_savePath, JsonUtility.ToJson(Save));
             
             if (Progress != progress)
             {
                 PlayerPrefs.SetInt("Progress", progress);
                 Progress = progress;
             }
+        
+            Reset();
+     
         }
 
         public void SetLevel(GameSave level)
         {
             Save = level;
             File.WriteAllText(_savePath, JsonUtility.ToJson(Save));
+        }
+
+        public void Reset()
+        {
+            Save = new GameSave()
+            {
+                Progression = LevelsDict.Levels[Progress],
+                MaxTurns = LevelsDict.Levels[Progress].Length,
+                TurnCount = 0,
+                Score = 0
+            };
+            
+            File.WriteAllText(_savePath, JsonUtility.ToJson(Save));
+
         }
     }
 }
