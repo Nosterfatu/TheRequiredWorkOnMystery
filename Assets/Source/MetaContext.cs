@@ -25,12 +25,11 @@ namespace Source
                 Level = LevelsDict.Levels[progress],
                 Progression = LevelsDict.Levels[progress],
                 MaxTurns = LevelsDict.Levels[progress].Length,
-                TurnCount = 0
+                TurnCount = 0,
+                Score = 0
             };
             Progress = progress;
         }
-        
-        
 
         public void SetLevel(GameSave level)
         {

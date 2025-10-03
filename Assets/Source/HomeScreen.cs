@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,10 +30,4 @@ public class HomeScreen : MonoBehaviour
     {
         _loader.Load(0);
     }
-    
-}
-
-public interface ILoader
-{
-    void Load(int progress);
 }

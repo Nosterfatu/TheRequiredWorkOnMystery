@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Source
 {
     public class FieldController
     {
+        public event Action<GameSave> FieldChanged;
         private readonly GameField _field;
         private readonly FieldView _fieldView;
         private readonly GameSave _gameSave;
@@ -31,10 +33,12 @@ namespace Source
             {
                 _fieldView.Clear(selected.Value);
                 _fieldView.Clear(index);
-          
+                _gameSave.Score++;
             }
             selected = null;
             _gameSave.TurnCount++;
+            FieldChanged?.Invoke(_gameSave);
+            
             if (string.IsNullOrWhiteSpace( _field.GetSave()))
             {
                 Win();

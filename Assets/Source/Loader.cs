@@ -1,5 +1,4 @@
 ﻿using Source;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 internal class Loader : ILoader
@@ -15,5 +14,10 @@ internal class Loader : ILoader
     {
         _progressionManager.SetProgress(progress);
         SceneManager.LoadScene(1);
+    }
+
+    public void Unload()
+    {
+        SceneManager.LoadScene(0);
     }
 }
