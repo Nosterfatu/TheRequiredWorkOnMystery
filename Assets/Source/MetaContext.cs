@@ -24,10 +24,12 @@ namespace Source
             {
                 return;
             }
-                
+            if (progress < 0)
+            {
+                progress = 0;
+            }
             Save = new GameSave()
             {
-                Level = LevelsDict.Levels[progress],
                 Progression = LevelsDict.Levels[progress],
                 MaxTurns = LevelsDict.Levels[progress].Length,
                 TurnCount = 0,

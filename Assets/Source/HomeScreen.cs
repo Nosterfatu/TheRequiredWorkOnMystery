@@ -28,6 +28,6 @@ public class HomeScreen : MonoBehaviour
 
     private void NewGame()
     {
-        _loader.Load(0);
+        _loader.Load(-1);
     }
 }

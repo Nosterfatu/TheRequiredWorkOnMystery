@@ -29,17 +29,24 @@ namespace Source
                 selected = index;
                 return;
             }
+
+            if (selected == index)
+            {
+                selected = null;
+                return;
+            }
             if (_field.TryMatch(selected.Value, index))
             {
                 _fieldView.Clear(selected.Value);
                 _fieldView.Clear(index);
                 _gameSave.Score++;
+                _gameSave.Progression = _field.GetSave();
             }
             selected = null;
             _gameSave.TurnCount++;
             FieldChanged?.Invoke(_gameSave);
             
-            if (string.IsNullOrWhiteSpace( _field.GetSave()))
+            if (string.IsNullOrWhiteSpace(_gameSave.Progression))
             {
                 Win();
             }

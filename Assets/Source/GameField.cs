@@ -9,7 +9,7 @@ namespace Source
 
         public void Load(GameSave gameSave)
         {
-            var lines = gameSave.Level.Split('\n');
+            var lines = gameSave.Progression.Split('\n');
             _field = new string[lines.Length][];
             for (var index = 0; index < lines.Length; index++)
             {
@@ -17,6 +17,10 @@ namespace Source
                 var symbols = line.Split("|");
 
                 _field[index] = new string[symbols.Length];
+                for (int i = 0; i < symbols.Length; i++)
+                {
+                    _field[index][i] = symbols[i];
+                }
             }
         }
 
@@ -44,7 +48,7 @@ namespace Source
             for (var index = 0; index < _field.Length; index++)
             {
                 var level = _field[index];
-                string.Concat(updatedLevel, string.Join("|", level), index == _field.Length - 1 ? "\n" : "");
+                updatedLevel =string.Concat(updatedLevel, string.Join("|", level), index == _field.Length - 1 ? "" : "\n");
             }
             return updatedLevel;
         }
